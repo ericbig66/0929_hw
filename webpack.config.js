@@ -33,14 +33,6 @@ module.exports = {
                     }
                 ]
             },
-            // {
-            //     test: /\.(jpe?g|png|gif|svg)$/i,
-            //     use: [
-            //       {
-            //         loader: "file-loader" // Or `url-loader` or your other loader
-            //       }
-            //     ]
-            //   },
             {
                 test: /\.(jpe?g|png|gif|svg|cur)$/,
                 use: [
@@ -54,6 +46,14 @@ module.exports = {
                     }
                 ]
             },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/,
+                use: [
+                  {
+                    loader: "file-loader" // Or `url-loader` or your other loader
+                  },
+                ]
+              },
             {
                 test: /\.(sa|sc|c)ss$/, // /\.(sass|scss|css)$/,
                 use: [
@@ -159,32 +159,32 @@ module.exports = {
                 flatten: true
             }
         ]),
-        new WriteFilePlugin(),
-        new ImageminPlugin({
-            bail: false, // Ignore errors on corrupted images
-            cache: true,
-            imageminOptions: {
-              // Before using imagemin plugins make sure you have added them in `package.json` (`devDependencies`) and installed them
+        // new ImageminPlugin({
+        //     bail: false, // Ignore errors on corrupted images
+        //     cache: true,
+        //     imageminOptions: {
+        //       // Before using imagemin plugins make sure you have added them in `package.json` (`devDependencies`) and installed them
       
-              // Lossless optimization with custom option
-              // Feel free to experiment with options for better result for you
-              plugins: [
-                ["gifsicle", { interlaced: true }],
-                ["jpegtran", { progressive: true }],
-                ["optipng", { optimizationLevel: 5 }],
-                [
-                  "svgo",
-                  {
-                    plugins: [
-                      {
-                        removeViewBox: false
-                      }
-                    ]
-                  }
-                ]
-              ]
-            }
-          })
+        //       // Lossless optimization with custom option
+        //       // Feel free to experiment with options for better result for you
+        //       plugins: [
+        //         ["gifsicle", { interlaced: true }], 
+        //         ["jpegtran", { progressive: true }],
+        //         ["optipng", { optimizationLevel: 5 }],
+        //         [
+        //           "svgo",
+        //           {
+        //             plugins: [
+        //               {
+        //                 removeViewBox: false
+        //               }
+        //             ]
+        //           }
+        //         ]
+        //       ]
+        //     }
+        //   }) ,
+        new WriteFilePlugin()
     ],
     devServer: {
         open: true,
